@@ -13,7 +13,6 @@ set hidden                    " Allow unsaved buffer switching
 "        UI & Display
 " ==========================
 
-set termguicolors             " True color support
 set number                    " Show line numbers
 set showcmd                   " Show partial commands in bottom bar
 set ruler                     " Show cursor position
@@ -56,19 +55,13 @@ set undofile                  " Enable persistent undo
 "        Key Mappings
 " ==========================
 " Remap leader key to Space
-let mapleader=" "
+let mapleader=","
 
 " Fast saving with <Leader>w
 nnoremap <Leader>w :w<CR>
 
 " Quit quickly with <Leader>q
 nnoremap <Leader>q :q<CR>
-
-" Move between windows easily
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 " Quick indenting
 vnoremap < <gv
@@ -77,15 +70,8 @@ vnoremap > >gv
 " Reselect last pasted text
 nnoremap gp `[v`]
 
-" Smart word navigation
-nnoremap W 5w
-nnoremap B 5b
-
 " Open file explorer quickly
 nnoremap <Leader>e :edit .<CR>
-
-" Toggle line numbers
-nnoremap <Leader>n :set nu! rnu!<CR>
 
 " ==========================
 "        Status Line
@@ -93,42 +79,39 @@ nnoremap <Leader>n :set nu! rnu!<CR>
 set statusline=%f\ %m\ [%Y]\ [%{&ff}]\ [%{&encoding}]\ [%l,%c]
 
 " ==========================
-"    Syntax Highlighting
+"       Terminal Colors
 " ==========================
-" Background (black)
-highlight Normal  guibg=#0f0f0f guifg=#ffffff
-
-" Cursor line (gray)
-highlight CursorLine guibg=#2c2c2c ctermbg=236
-
-" Comments (gray)
-highlight Comment ctermfg=Gray guifg=#6c6c6c
-
-" Line numbers (black)
-highlight LineNr ctermfg=Gray guibg=#0f0f0f guifg=#6c6c6c
-
-" Current line number (white)
-highlight CursorLineNr ctermfg=White guibg=#2c2c2c guifg=#ffffff
-
-" Strings (green)
-highlight String ctermfg=Green guifg=#8ec07c
-
-" Keywords (blue)
-highlight Keyword ctermfg=Blue guifg=#83a598
-
-" Function names (yellow)
-highlight Function ctermfg=Yellow guifg=#fabd2f
-
-" Variables (cyan)
-highlight Identifier ctermfg=Cyan guifg=#8ec07c
-
-" Operators (magenta)
-highlight Operator ctermfg=Magenta guifg=#d3869b
+augroup MyTermColors
+    autocmd!
+    autocmd VimEnter * highlight Normal ctermfg=255          " White text
+    autocmd VimEnter * highlight Comment ctermfg=242         " Gray comments
+    autocmd VimEnter * highlight LineNr ctermfg=242          " Gray line numbers
+    autocmd VimEnter * highlight CursorLineNr ctermfg=255    " White current line number
+    autocmd VimEnter * highlight String ctermfg=114          " Light green strings
+    autocmd VimEnter * highlight Keyword ctermfg=109         " Light blue keywords
+    autocmd VimEnter * highlight Function ctermfg=214        " Yellow function names
+    autocmd VimEnter * highlight Identifier ctermfg=114      " Light green identifiers
+    autocmd VimEnter * highlight Operator ctermfg=175        " Light magenta operators
+augroup END
 
 " ==========================
 "           MacVim
 " ==========================
-if has("gui_macvim")
-    set guifont=FiraMono\ Nerd\ Font:h15
-    set linespace=4
-endif
+augroup MyGUIColors
+    autocmd!
+    autocmd GUIEnter * set guifont=FiraMono\ Nerd\ Font\ Mono:h15
+    autocmd GUIEnter * set linespace=4
+
+    autocmd GUIEnter * set termguicolors
+    autocmd GUIEnter * highlight Normal guibg=#141414 guifg=#ffffff
+    autocmd GUIEnter * highlight CursorLine guibg=#2c2c2c
+    autocmd GUIEnter * highlight Comment guifg=#6c6c6c
+    autocmd GUIEnter * highlight LineNr guibg=#141414 guifg=#6c6c6c
+    autocmd GUIEnter * highlight CursorLineNr guibg=#2c2c2c guifg=#ffffff
+    autocmd GUIEnter * highlight String guifg=#8ec07c
+    autocmd GUIEnter * highlight Keyword guifg=#83a598
+    autocmd GUIEnter * highlight Function guifg=#fabd2f
+    autocmd GUIEnter * highlight Identifier guifg=#8ec07c
+    autocmd GUIEnter * highlight Operator guifg=#d3869b
+augroup END
+
