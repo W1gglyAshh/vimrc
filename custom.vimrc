@@ -1,77 +1,82 @@
 " ==========================
 "     General Settings
 " ==========================
-set nocompatible              " Disable vi compatibility mode
-set encoding=utf-8            " Ensure UTF-8 encoding
-set fileencodings=utf-8       " Use UTF-8 as default encoding
-set mouse=a                   " Enable mouse support
-set backspace=indent,eol,start " Make backspace work as expected
-set clipboard=unnamedplus     " Use system clipboard (if supported)
-set hidden                    " Allow unsaved buffer switching
+set nocompatible
+set encoding=utf-8
+set fileencodings=utf-8
+set mouse=a
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+set hidden
 
 " ==========================
 "        UI & Display
 " ==========================
 
-set number                    " Show line numbers
-set showcmd                   " Show partial commands in bottom bar
-set ruler                     " Show cursor position
-set cursorline                " Highlight cursor line
-set wildmenu                  " Enhanced command-line completion
-set lazyredraw                " Improve performance on large files
-set scrolloff=5               " Keep cursor centered while scrolling
-set sidescrolloff=8           " Keep horizontal margin when scrolling
-set laststatus=2              " Always show status line
-set showmatch                 " Highlight matching brackets
-set matchtime=2               " Speed up match highlight timing
-syntax on                     " Enable syntax highlighting
+set number
+set showcmd
+set ruler
+set cursorline
+set wildmenu
+set lazyredraw
+set scrolloff=5
+set sidescrolloff=8
+set laststatus=2
+set showmatch
+set matchtime=2
+syntax on
 
 " ==========================
 "        Indentation
 " ==========================
-set autoindent                " Auto-indent new lines
-set smartindent               " Smarter indentation
-set expandtab                 " Convert tabs to spaces
-set shiftwidth=4              " Indent width = 4 spaces
-set tabstop=4                 " Tab width = 4 spaces
-set softtabstop=4             " Soft tab width = 4 spaces
+set autoindent
+set cindent
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 
 " ==========================
 "          Search
 " ==========================
-set hlsearch                  " Highlight search results
-set incsearch                 " Show search results as you type
-set ignorecase                " Case insensitive search
-set smartcase                 " Case-sensitive if capital letter used
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
 " ==========================
 "        File Handling
 " ==========================
-set autoread                  " Auto-reload files when changed externally
-set confirm                   " Prompt before closing unsaved changes
-set undofile                  " Enable persistent undo
+set autoread
+set confirm
+set undofile
 
 " ==========================
 "        Key Mappings
 " ==========================
-" Remap leader key to Space
-let mapleader=","
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap ( ()<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap ` ``<Left>
 
-" Fast saving with <Leader>w
-nnoremap <Leader>w :w<CR>
+function! EnterHandler()
+    let line = getline('.')
+    let col = col('.')
+    
+    let pairs = {'{': '}', '[': ']', '(': ')'}
+    
+    for [open, close] in items(pairs)
+        if line[col-2] == open && line[col-1] == close
+            return "\<CR>\<Esc>O"
+        endif
+    endfor
 
-" Quit quickly with <Leader>q
-nnoremap <Leader>q :q<CR>
+    return "\<CR>"
+endfunction
 
-" Quick indenting
-vnoremap < <gv
-vnoremap > >gv
-
-" Reselect last pasted text
-nnoremap gp `[v`]
-
-" Open file explorer quickly
-nnoremap <Leader>e :edit .<CR>
+inoremap <expr> <CR> EnterHandler()
 
 " ==========================
 "        Status Line
@@ -114,4 +119,3 @@ augroup MyGUIColors
     autocmd GUIEnter * highlight Identifier guifg=#8ec07c
     autocmd GUIEnter * highlight Operator guifg=#d3869b
 augroup END
-
