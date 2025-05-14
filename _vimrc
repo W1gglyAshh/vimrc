@@ -2,10 +2,7 @@
 "     General Settings
 " ==========================
 set nocompatible
-set encoding=utf-8
-set fileencodings=utf-8
 set mouse=a
-set backspace=indent,eol,start
 set hidden
 
 " ==========================
@@ -15,19 +12,18 @@ set hidden
 set number
 set showcmd
 set ruler
-set cursorline
+set nowrap
 set wildmenu
 set lazyredraw
 set scrolloff=5
 set sidescrolloff=8
-set laststatus=2
 set showmatch
 set matchtime=2
-colorscheme w1gtheme
+colorscheme theme
 
 augroup MacVimGui
   autocmd!
-  autocmd GUIEnter * colorscheme w1gtheme | set guifont=JetBrainsMonoNL\ Nerd\ Font:h16
+  autocmd GUIEnter * colorscheme theme | set guifont=SF\ Mono:h16 | set guicursor=a:blinkon0
 augroup END
 
 " ==========================
@@ -35,9 +31,9 @@ augroup END
 " ==========================
 set autoindent
 set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=5
+set tabstop=5
+set softtabstop=5
 filetype plugin indent on
 
 " ==========================
@@ -53,9 +49,7 @@ set smartcase
 " ==========================
 set autoread
 set confirm
-
-" ==========================
-"        Status Line
-" ==========================
-set statusline=%f\ %m\ [%Y]\ [%{&ff}]\ [%{&encoding}]\ [%l,%c]
+set encoding=utf-8
+set fileencodings=utf-8
+set backspace=indent,eol,start
 
