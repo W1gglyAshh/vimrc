@@ -12,6 +12,7 @@ set hidden
 set number
 set showcmd
 set ruler
+set laststatus=2
 set nowrap
 set wildmenu
 set lazyredraw
@@ -19,11 +20,11 @@ set scrolloff=5
 set sidescrolloff=8
 set showmatch
 set matchtime=2
-colorscheme theme
+syntax off
 
 augroup MacVimGui
   autocmd!
-  autocmd GUIEnter * colorscheme theme | set guifont=SF\ Mono:h16 | set guicursor=a:blinkon0
+  autocmd GUIEnter * colorscheme theme | set guifont=FiraMono\ Nerd\ Font:h18 | set guicursor=a:blinkon0
 augroup END
 
 " ==========================
@@ -32,7 +33,7 @@ augroup END
 set autoindent
 set expandtab
 set shiftwidth=5
-set tabstop=5
+set tabstop=8
 set softtabstop=5
 filetype plugin indent on
 
